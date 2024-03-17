@@ -1,18 +1,20 @@
-// Import required modules
 const express = require('express');
-const path = require('path');
-
-// Create an Express application
 const app = express();
+const path = require('path');
+const PORT = process.env.PORT || 3001
 
-// Define a route to serve the HTML file
-app.get('/', (req, res) => {
-    // Send the index.html file when the root URL is accessed
-    res.sendFile(path.join(__dirname, 'develop/public'));
-});
+const notesRoutes = require('./routes/notesRoutes');
+const indexRoutes = require('./routes/indexRoutes');
 
-// Start the server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+const publicPath = path.join(__dirname, 'public');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(publicPath));
+
+app.use('/', indexRoutes);
+app.use('/', notesRoutes);
+
+app.listen(PORT, () =>
+    console.log(`Listening for requests on port ${PORT}!`)
+);

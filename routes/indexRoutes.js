@@ -10,7 +10,7 @@ const path = require('path');
 // Defining a route for handling GET requests to the root URL ('/')
 router.get('/', (req, res) => {
     // Sending the index.html file located in the public directory as the response
-    res.sendFile(path.join(__dirname, '../Develop/public/index.html'));
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 // Exporting the router module to be used in other parts of the application
